@@ -1,0 +1,150 @@
+{
+  "current": {
+    "logo": "",
+    "logo_width": 140,
+    "favicon": "",
+    
+    "colors_solid_button_labels": "#FFFFFF",
+    "colors_accent_1": "#121212",
+    "colors_accent_2": "#334FB4",
+    "colors_text": "#121212",
+    "colors_outline_button_labels": "#121212",
+    "colors_background_1": "#FFFFFF",
+    "colors_background_2": "#F3F3F3",
+    
+    "type_header_font": "poppins_n6",
+    "heading_scale": 100,
+    "type_body_font": "inter_n4",
+    "body_scale": 100,
+    
+    "social_twitter_link": "https://twitter.com",
+    "social_facebook_link": "https://facebook.com",
+    "social_instagram_link": "https://instagram.com",
+    "social_youtube_link": "https://youtube.com",
+    "social_tiktok_link": "https://tiktok.com",
+    
+    "container_width": 1200,
+    "spacing_sections": 50,
+    "spacing_grid_horizontal": 20,
+    "spacing_grid_vertical": 20,
+    "grid_columns_desktop": 3,
+    "grid_columns_mobile": 2,
+    
+    "enable_sticky_header": true,
+    "enable_cart_drawer": true,
+    "show_vendor": true,
+    "show_rating": true,
+    "show_cookie_banner": true,
+    
+    "seo_title": "Your Store Name",
+    "seo_description": "Welcome to our store - discover our amazing products",
+    "seo_keywords": "shop, ecommerce, store, products",
+    
+    "checkout_logo_enabled": true,
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_color": "#FFFFFF",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_color": "#F3F3F3",
+    "checkout_accent_color": "#334FB4",
+    "checkout_button_color": "#121212",
+    
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "text": "Welcome to our store",
+          "text_color": "#FFFFFF",
+          "background_color": "#121212",
+          "enable": true
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "menu": "main-menu",
+          "show_search": true,
+          "show_cart": true,
+          "sticky_header": true
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "menu_1": "footer",
+          "show_social": true,
+          "show_payment_icons": true,
+          "show_locale_selector": true,
+          "show_currency_selector": true,
+          "copyright_text": "© 2024 Your Store. All rights reserved."
+        }
+      }
+    },
+    
+    "content_for_index": [
+      "hero-banner",
+      "featured-collection",
+      "testimonials"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "logo_width": 140,
+      "colors_solid_button_labels": "#FFFFFF",
+      "colors_accent_1": "#121212",
+      "colors_accent_2": "#334FB4",
+      "colors_text": "#121212",
+      "colors_outline_button_labels": "#121212",
+      "colors_background_1": "#FFFFFF",
+      "colors_background_2": "#F3F3F3",
+      "type_header_font": "poppins_n6",
+      "heading_scale": 100,
+      "type_body_font": "inter_n4",
+      "body_scale": 100,
+      "container_width": 1200,
+      "spacing_sections": 50,
+      "spacing_grid_horizontal": 20,
+      "spacing_grid_vertical": 20,
+      "grid_columns_desktop": 3,
+      "grid_columns_mobile": 2,
+      "enable_sticky_header": true,
+      "enable_cart_drawer": true,
+      "show_vendor": true,
+      "show_rating": true,
+      "show_cookie_banner": true,
+      "sections": {
+        "announcement-bar": {
+          "type": "announcement-bar",
+          "settings": {
+            "text": "Welcome to our store",
+            "text_color": "#FFFFFF",
+            "background_color": "#121212",
+            "enable": true
+          }
+        }
+      }
+    },
+    "Light": {
+      "colors_solid_button_labels": "#FFFFFF",
+      "colors_accent_1": "#335C67",
+      "colors_accent_2": "#E09F3E",
+      "colors_text": "#333333",
+      "colors_outline_button_labels": "#335C67",
+      "colors_background_1": "#FFFFFF",
+      "colors_background_2": "#F5F5F5",
+      "type_header_font": "montserrat_n6",
+      "type_body_font": "nunito_sans_n4"
+    },
+    "Dark": {
+      "colors_solid_button_labels": "#FFFFFF",
+      "colors_accent_1": "#9B2226",
+      "colors_accent_2": "#BB3E03",
+      "colors_text": "#FFFFFF",
+      "colors_outline_button_labels": "#FFFFFF",
+      "colors_background_1": "#1B1B1B",
+      "colors_background_2": "#2B2B2B",
+      "type_header_font": "oswald_n5",
+      "type_body_font": "roboto_n4"
+    }
+  }
+}

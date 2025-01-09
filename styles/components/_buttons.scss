@@ -1,0 +1,167 @@
+// Import variables if not already imported
+@use '../variables' as *;
+
+/* Button Base Styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: map-get($spacing, 'md') map-get($spacing, 'xl');
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-family: map-get($fonts, 'body');
+  font-size: map-get($font-sizes, 'base');
+  font-weight: map-get($font-weights, 'medium');
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  line-height: 1.4;
+  position: relative;
+  overflow: hidden;
+
+  // Accessibility focus styles
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(map-get(map-get($colors, 'primary'), 'base'), 0.4);
+  }
+
+  &:focus:not(:focus-visible) {
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(map-get(map-get($colors, 'primary'), 'base'), 0.4);
+  }
+
+  // Disabled state
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Loading state
+  &--loading {
+    position: relative;
+    color: transparent !important;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 50%;
+      left: 50%;
+      margin: -10px 0 0 -10px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: button-loading 0.8s infinite linear;
+    }
+  }
+}
+
+/* Primary Button */
+.button--primary {
+  background-color: map-get(map-get($colors, 'primary'), 'base');
+  color: map-get(map-get($colors, 'text'), 'inverse');
+
+  &:hover:not(:disabled) {
+    background-color: map-get(map-get($colors, 'primary'), 'dark');
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background-color: map-get(map-get($colors, 'primary'), 'dark');
+  }
+}
+
+/* Secondary Button */
+.button--secondary {
+  background-color: transparent;
+  color: map-get(map-get($colors, 'primary'), 'base');
+  border: 2px solid map-get(map-get($colors, 'primary'), 'base');
+
+  &:hover:not(:disabled) {
+    background-color: map-get(map-get($colors, 'primary'), 'base');
+    color: map-get(map-get($colors, 'text'), 'inverse');
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background-color: map-get(map-get($colors, 'primary'), 'dark');
+    border-color: map-get(map-get($colors, 'primary'), 'dark');
+  }
+}
+
+/* Text Button */
+.button--text {
+  background-color: transparent;
+  color: map-get(map-get($colors, 'primary'), 'base');
+  padding: map-get($spacing, 'sm') map-get($spacing, 'md');
+  min-width: auto;
+
+  &:hover:not(:disabled) {
+    color: map-get(map-get($colors, 'primary'), 'dark');
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: map-get(map-get($colors, 'primary'), 'dark');
+  }
+}
+
+/* Full Width Modifier */
+.button--full {
+  width: 100%;
+}
+
+/* Size Variants */
+.button--small {
+  padding: map-get($spacing, 'sm') map-get($spacing, 'lg');
+  font-size: map-get($font-sizes, 'sm');
+  min-width: 120px;
+}
+
+.button--large {
+  padding: map-get($spacing, 'lg') map-get($spacing, 'xl');
+  font-size: map-get($font-sizes, 'lg');
+  min-width: 200px;
+}
+
+/* Loading Animation */
+@keyframes button-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Group Buttons */
+.button-group {
+  display: inline-flex;
+  gap: map-get($spacing, 'sm');
+
+  @include responsive('md') {
+    gap: map-get($spacing, 'md');
+  }
+
+  &--vertical {
+    flex-direction: column;
+  }
+
+  &--full {
+    width: 100%;
+    
+    .button {
+      flex: 1;
+    }
+  }
+} 

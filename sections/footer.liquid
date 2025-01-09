@@ -1,0 +1,49 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__content">
+      {%- if section.settings.menu_1 != blank -%}
+        <nav class="footer__nav">
+          {%- for link in section.settings.menu_1.links -%}
+            <a href="{{ link.url }}" class="footer__nav-link">{{ link.title }}</a>
+          {%- endfor -%}
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.show_social -%}
+        <div class="footer__social">
+          <!-- Add social icons here -->
+        </div>
+      {%- endif -%}
+    </div>
+    
+    <div class="footer__bottom">
+      <p class="footer__copyright">{{ section.settings.copyright_text }}</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu",
+      "default": "footer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social",
+      "label": "Show social icons",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright text",
+      "default": "© 2024 Your Store. All rights reserved."
+    }
+  ]
+}
+{% endschema %} 

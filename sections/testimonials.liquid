@@ -1,0 +1,292 @@
+<div class="section-testimonials" style="background-color: {{ section.settings.background_color }}">
+  <div class="container">
+    {% if section.settings.title != blank %}
+      <{{ section.settings.heading_size }} class="section-title text-{{ section.settings.text_alignment }}">
+        {{ section.settings.title }}
+      </{{ section.settings.heading_size }}>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="testimonials-grid columns-{{ section.blocks.size }}"
+           style="--grid-gap: {{ section.settings.grid_gap }}px">
+        {% for block in section.blocks %}
+          <div class="testimonial-card text-{{ section.settings.text_alignment }}" {{ block.shopify_attributes }}>
+            {% if block.settings.author_image != blank %}
+              <div class="testimonial-card__image-wrapper">
+                <img src="{{ block.settings.author_image | img_url: '200x200', crop: 'center' }}"
+                     alt="{{ block.settings.author_name }}"
+                     class="testimonial-card__image"
+                     width="100"
+                     height="100"
+                     loading="lazy">
+              </div>
+            {% endif %}
+
+            {% if block.settings.testimonial_text != blank %}
+              <div class="testimonial-card__content">
+                <blockquote class="testimonial-card__quote">
+                  {{ block.settings.testimonial_text }}
+                </blockquote>
+              </div>
+            {% endif %}
+
+            {% if block.settings.author_name != blank %}
+              <div class="testimonial-card__author">
+                <span class="testimonial-card__name">{{ block.settings.author_name }}</span>
+                {% if block.settings.author_title != blank %}
+                  <span class="testimonial-card__title">{{ block.settings.author_title }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.rating > 0 %}
+              <div class="testimonial-card__rating" style="--rating: {{ block.settings.rating }}">
+                ★★★★★
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="testimonials-placeholder">
+        <p>{{ 'sections.testimonials.no_testimonials' | t }}</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Large"
+        },
+        {
+          "value": "h2",
+          "label": "Medium"
+        },
+        {
+          "value": "h3",
+          "label": "Small"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Space Between Testimonials",
+      "min": 16,
+      "max": 60,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "text",
+          "id": "author_title",
+          "label": "Author Title/Location",
+          "default": "Verified Customer"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_text",
+          "label": "Testimonial",
+          "default": "Share what your customers are saying about your products or services."
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.section-testimonials {
+  padding: var(--section-padding) 0;
+}
+
+.section-title {
+  margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+@media screen and (min-width: 750px) {
+  .testimonials-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.testimonial-card__image-wrapper {
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card__image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.testimonial-card__content {
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card__quote {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 0;
+  font-style: italic;
+}
+
+.testimonial-card__author {
+  margin-top: 1rem;
+}
+
+.testimonial-card__name {
+  display: block;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #000;
+}
+
+.testimonial-card__title {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.testimonial-card__rating {
+  margin-top: 1rem;
+  color: #ffd700;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  overflow: hidden;
+}
+
+.testimonial-card__rating::before {
+  content: '★★★★★';
+  position: absolute;
+  color: #ddd;
+}
+
+.testimonial-card__rating::after {
+  content: '★★★★★';
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  width: calc(var(--rating) * 20%);
+  overflow: hidden;
+}
+
+.testimonials-placeholder {
+  text-align: center;
+  padding: 3rem;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+</style>

@@ -1,0 +1,41 @@
+{%- if section.settings.enable -%}
+  <div class="announcement-bar" style="background-color: {{ section.settings.background_color }}">
+    <div class="container">
+      <p class="announcement-bar__message" style="color: {{ section.settings.text_color }}">
+        {{ section.settings.text }}
+      </p>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable",
+      "label": "Show announcement",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#121212"
+    }
+  ]
+}
+{% endschema %}

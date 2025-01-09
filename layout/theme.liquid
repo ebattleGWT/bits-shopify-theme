@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <!-- Basic Meta Tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.primary_color }}">
+  
+  <!-- SEO Meta Tags -->
+  <title>
+    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <!-- Favicon -->
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  <!-- Preconnect to External Domains -->
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+
+  <!-- Theme CSS Variables -->
+  <style>
+    :root {
+      --container-width: {{ settings.container_width }}px;
+      --section-padding: {{ settings.spacing_sections }}px;
+      
+      /* Colors */
+      --color-primary: {{ settings.primary_color }};
+      --color-secondary: {{ settings.secondary_color }};
+      
+      /* Typography */
+      --font-heading: {{ settings.heading_font.family }}, {{ settings.heading_font.fallback_families }};
+      --font-body: {{ settings.body_font.family }}, {{ settings.body_font.fallback_families }};
+      
+      /* Grid */
+      --grid-gap-horizontal: {{ settings.spacing_grid_horizontal }}px;
+      --grid-gap-vertical: {{ settings.spacing_grid_vertical }}px;
+    }
+  </style>
+
+  <!-- Theme Stylesheet -->
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <!-- Header Scripts -->
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+  <!-- Shopify Header Scripts -->
+  {{ content_for_header }}
+</head>
+
+<body class="template-{{ template.name | handle }}">
+  <!-- Skip to Main Content Link for Accessibility -->
+  <a class="skip-to-main" href="#MainContent">
+    {{ 'accessibility.skip_to_content' | t }}
+  </a>
+
+  <!-- Announcement Bar -->
+  {%- section 'announcement-bar' -%}
+
+  <!-- Header -->
+  {%- section 'header' -%}
+
+  <!-- Main Content -->
+  <main role="main" id="MainContent" class="main-content">
+    <!-- Template-specific Content -->
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Footer -->
+  {%- section 'footer' -%}
+
+  <!-- Modal Container for Dynamic Content -->
+  <div id="modal-container" class="modal-container" aria-hidden="true"></div>
+
+  <!-- Cookie Consent -->
+  {%- comment -%}
+    {%- if settings.show_cookie_banner -%}
+      {%- section 'cookie-banner' -%}
+    {%- endif -%}
+
+    {%- if settings.enable_cart_drawer -%}
+      {%- section 'cart-drawer' -%}
+    {%- endif -%}
+  {%- endcomment -%}
+
+  <!-- Footer Scripts -->
+  <script>
+    // Initialize theme settings
+    window.themeSettings = {
+      moneyFormat: {{ shop.money_format | json }},
+      cartType: {{ settings.cart_type | json }},
+      isCartDrawerEnabled: {{ settings.enable_cart_drawer | json }},
+      isStickyHeaderEnabled: {{ settings.enable_sticky_header | json }}
+    };
+  </script>
+
+  <!-- Shopify Helper Libraries -->
+  <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+</body>
+</html>

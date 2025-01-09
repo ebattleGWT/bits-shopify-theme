@@ -1,0 +1,112 @@
+<div class="product">
+  <div class="container">
+    <div class="product__layout">
+      <div class="product__media">
+        {%- for media in product.media -%}
+          <div class="product__media-item">
+            {%- case media.media_type -%}
+              {%- when 'image' -%}
+                <img src="{{ media | img_url: '800x' }}"
+                     alt="{{ media.alt | escape }}"
+                     loading="{{ forloop.first | default: 'lazy' }}"
+                     width="800"
+                     height="{{ 800 | divided_by: media.aspect_ratio | round }}">
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag }}
+              {%- when 'video' -%}
+                {{ media | video_tag: controls: true }}
+              {%- when 'model' -%}
+                {{ media | model_viewer_tag }}
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <div class="product__info">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'vendor' -%}
+              <div class="product__vendor">{{ product.vendor }}</div>
+            {%- when 'title' -%}
+              <h1 class="product__title">{{ product.title }}</h1>
+            {%- when 'price' -%}
+              <div class="product__price">
+                {{ product.price | money }}
+              </div>
+            {%- when 'variant_picker' -%}
+              {%- unless product.has_only_default_variant -%}
+                <div class="product__variants">
+                  {%- for option in product.options_with_values -%}
+                    <label for="Option-{{ forloop.index }}">
+                      {{ option.name }}
+                    </label>
+                    <select id="Option-{{ forloop.index }}"
+                            name="options[{{ option.name | escape }}]"
+                            class="product__variant-select">
+                      {%- for value in option.values -%}
+                        <option value="{{ value | escape }}"
+                                {% if option.selected_value == value %}selected="selected"{% endif %}>
+                          {{ value }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                  {%- endfor -%}
+                </div>
+              {%- endunless -%}
+            {%- when 'buy_buttons' -%}
+              <div class="product__form">
+                <form method="post" action="/cart/add">
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <button type="submit" class="button button--primary">
+                    Add to Cart
+                  </button>
+                </form>
+              </div>
+            {%- when 'description' -%}
+              <div class="product__description">
+                {{ product.description }}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product",
+  "blocks": [
+    {
+      "type": "vendor",
+      "name": "Vendor",
+      "limit": 1
+    },
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Price",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variant Picker",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Buy Buttons",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Description",
+      "limit": 1
+    }
+  ]
+}
+{% endschema %} 

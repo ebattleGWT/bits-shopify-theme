@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "featured_products": {
+      "no_products": "No products found in this collection",
+      "view_all": "View all products"
+    },
+    "testimonials": {
+      "no_testimonials": "Add testimonial blocks to display customer reviews"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Skip to main content"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "quantity": "Quantity",
+      "specifications": "Specifications",
+      "shipping": "Shipping Information",
+      "sale": "Sale"
+    }
+  },
+  "collections": {
+    "general": {
+      "products_count": {
+        "one": "1 product",
+        "other": "{{ count }} products"
+      },
+      "no_products": "No products found in this collection"
+    },
+    "sorting": {
+      "title": "Sort by"
+    },
+    "filtering": {
+      "filter": "Filter",
+      "apply": "Apply Filters",
+      "clear": "Clear Filters"
+    }
+  }
+}
