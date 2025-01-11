@@ -1,6 +1,7 @@
-<div class="main-content">
-  <h1>Welcome to {{ shop.name }}</h1>
+{{ section.settings }}
 
-  {% section 'hero-banner' %}
+{% section "announcement-bar" %}
 
-</div>
+{% for section in sections %}
+  {% render section %}
+{% endfor %}
