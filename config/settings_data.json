@@ -108,7 +108,7 @@
           "enable_popup": true,
           "popup_title": "Save 10% off items $25 or more",
           "popup_subtitle": "Get alerts about new items, sales and more.",
-          "show_crate_kids": true,
+          "show_crate_kids": false,
           "popup_delay": 1
         }
       }
