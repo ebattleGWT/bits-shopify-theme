@@ -70,6 +70,40 @@
       "id": "announcement_link_text",
       "label": "Announcement Link Text",
       "default": "Learn More"
+    },
+    {
+      "type": "header",
+      "content": "Header Actions"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search bar",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_locations",
+      "label": "Show locations link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart",
+      "default": true
     }
   ]
 }
@@ -80,18 +114,20 @@
   <header class="site-header">
     <div class="container">
       <!-- Search Bar -->
-      <div class="header-search">
-        <form action="/search" method="get" class="search-form">
-          <input type="text" name="q" placeholder="What can we help you find?" aria-label="Search">
-          <button type="submit" class="search-submit">
-            <span class="icon-search">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </span>
-          </button>
-        </form>
-      </div>
+      {% if section.settings.show_search %}
+        <div class="header-search">
+          <form action="/search" method="get" class="search-form">
+            <input type="text" name="q" placeholder="What can we help you find?" aria-label="Search">
+            <button type="submit" class="search-submit">
+              <span class="icon-search">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </span>
+            </button>
+          </form>
+        </div>
+      {% endif %}
 
       <!-- Logo -->
       <div class="header-logo">
@@ -104,38 +140,49 @@
                  height="auto"
                  loading="lazy">
           {% else %}
-            <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name }}" class="default-logo">
+            <span class="header__shop-name">{{ shop.name }}</span>
           {% endif %}
         </a>
       </div>
 
       <!-- Header Actions -->
       <div class="header-actions">
-        <a href="/account" class="header-action">Orders & Sign In</a>
-        <a href="/locations" class="header-action">
-          <span class="icon-location">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2"/>
-              <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-        </a>
-        <a href="/wishlist" class="header-action">
-          <span class="icon-heart">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 21L2.39998 11.4C0.899983 9.9 0.899983 7.5 2.39998 6C3.89998 4.5 6.29998 4.5 7.79998 6L12 10.2L16.2 6C17.7 4.5 20.1 4.5 21.6 6C23.1 7.5 23.1 9.9 21.6 11.4L12 21Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="count">0</span>
-        </a>
-        <a href="/cart" class="header-action">
-          <span class="icon-cart">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 3H5L5.4 5M5.4 5H21L17 13H7M5.4 5L7 13M7 13L4.707 15.293C4.077 15.923 4.523 17 5.414 17H17M17 17C16.4696 17 15.9609 17.2107 15.5858 17.5858C15.2107 17.9609 15 18.4696 15 19C15 19.5304 15.2107 20.0391 15.5858 20.4142C15.9609 20.7893 16.4696 21 17 21C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19C19 18.4696 18.7893 17.9609 18.4142 17.5858C18.0391 17.2107 17.5304 17 17 17Z" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="count">0</span>
-        </a>
+        {% if section.settings.show_account %}
+          <a href="/account" class="header-action">Orders & Sign In</a>
+        {% endif %}
+        
+        {% if section.settings.show_locations %}
+          <a href="/locations" class="header-action">
+            <span class="icon-location">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </span>
+          </a>
+        {% endif %}
+
+        {% if section.settings.show_wishlist %}
+          <a href="/wishlist" class="header-action">
+            <span class="icon-heart">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21L2.39998 11.4C0.899983 9.9 0.899983 7.5 2.39998 6C3.89998 4.5 6.29998 4.5 7.79998 6L12 10.2L16.2 6C17.7 4.5 20.1 4.5 21.6 6C23.1 7.5 23.1 9.9 21.6 11.4L12 21Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </span>
+            <span class="count">0</span>
+          </a>
+        {% endif %}
+
+        {% if section.settings.show_cart %}
+          <a href="/cart" class="header-action">
+            <span class="icon-cart">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 3H5L5.4 5M5.4 5H21L17 13H7M5.4 5L7 13M7 13L4.707 15.293C4.077 15.923 4.523 17 5.414 17H17M17 17C16.4696 17 15.9609 17.2107 15.5858 17.5858C15.2107 17.9609 15 18.4696 15 19C15 19.5304 15.2107 20.0391 15.5858 20.4142C15.9609 20.7893 16.4696 21 17 21C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19C19 18.4696 18.7893 17.9609 18.4142 17.5858C18.0391 17.2107 17.5304 17 17 17Z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </span>
+            <span class="count">0</span>
+          </a>
+        {% endif %}
       </div>
     </div>
   </header>
@@ -217,6 +264,13 @@
 
 .header-logo {
   text-align: center;
+}
+
+.header__shop-name {
+  font-size: 24px;
+  font-weight: 500;
+  color: #000;
+  text-decoration: none;
 }
 
 .header-actions {
