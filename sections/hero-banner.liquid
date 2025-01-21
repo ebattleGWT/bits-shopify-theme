@@ -27,42 +27,65 @@
 {% schema %}
 {
   "name": "Hero Banner",
-  "tag": "section",
-  "class": "hero-banner-section",
   "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Welcome to our store",
-      "info": "Main heading for your hero banner"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "label": "Heading Size",
-      "options": [
-        {
-          "value": "h1",
-          "label": "Large"
-        },
-        {
-          "value": "h2",
-          "label": "Medium"
-        },
-        {
-          "value": "h3",
-          "label": "Small"
-        }
-      ],
-      "default": "h1"
+      "default": "Natural Beauty Solutions"
     },
     {
       "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Discover our latest collection",
-      "info": "Additional supporting text"
+      "id": "text",
+      "label": "Text content",
+      "default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View Catalog"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#FFD699"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Featured Products"
+    },
+    {
+      "type": "product_list",
+      "id": "featured_products",
+      "label": "Featured products",
+      "limit": 3
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products section heading",
+      "default": "NEW PRODUCTS"
     },
     {
       "type": "image_picker",
@@ -79,37 +102,6 @@
       "unit": "%",
       "label": "Overlay Opacity",
       "default": 30
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button Text",
-      "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "select",
-      "id": "button_style",
-      "label": "Button Style",
-      "options": [
-        {
-          "value": "primary",
-          "label": "Primary"
-        },
-        {
-          "value": "secondary",
-          "label": "Secondary"
-        },
-        {
-          "value": "outline",
-          "label": "Outline"
-        }
-      ],
-      "default": "primary"
     },
     {
       "type": "select",
@@ -155,8 +147,249 @@
   "presets": [
     {
       "name": "Hero Banner",
-      "category": "Hero Sections"
+      "category": "Hero"
     }
   ]
 }
 {% endschema %}
+
+<style>
+.hero-banner {
+  position: relative;
+  padding: 80px 0;
+  background-color: {{ section.settings.background_color }};
+  color: {{ section.settings.text_color }};
+  overflow: hidden;
+}
+
+.hero-banner__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-banner__content {
+  max-width: 600px;
+}
+
+.hero-banner__heading {
+  font-size: 64px;
+  line-height: 1.1;
+  margin: 0 0 20px;
+  font-weight: 500;
+}
+
+.hero-banner__text {
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0 0 30px;
+}
+
+.hero-banner__button {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 30px;
+  background: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.hero-banner__button:hover {
+  opacity: 0.9;
+}
+
+.hero-banner__button-icon {
+  margin-left: 10px;
+}
+
+.hero-banner__products {
+  margin-top: 60px;
+}
+
+.hero-banner__products-heading {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 30px;
+}
+
+.hero-banner__products-title {
+  font-size: 32px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.hero-banner__products-subtitle {
+  font-size: 48px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.3);
+  margin: 0 0 0 15px;
+}
+
+.hero-banner__product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.hero-banner__product {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+}
+
+.hero-banner__product:hover {
+  transform: translateY(-5px);
+}
+
+.hero-banner__product-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.hero-banner__product-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
+.hero-banner__product-price {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.hero-banner__image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-banner__platform {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.3));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 20px;
+}
+
+.hero-banner__product-showcase {
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 990px) {
+  .hero-banner__container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-banner__content {
+    margin: 0 auto;
+  }
+
+  .hero-banner__heading {
+    font-size: 48px;
+  }
+
+  .hero-banner__product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .hero-banner {
+    padding: 60px 0;
+  }
+
+  .hero-banner__heading {
+    font-size: 36px;
+  }
+
+  .hero-banner__text {
+    font-size: 16px;
+  }
+
+  .hero-banner__products-title {
+    font-size: 24px;
+  }
+
+  .hero-banner__products-subtitle {
+    font-size: 36px;
+  }
+}
+</style>
+
+<div class="hero-banner">
+  <div class="hero-banner__container">
+    <div class="hero-banner__content">
+      <h1 class="hero-banner__heading">{{ section.settings.heading }}</h1>
+      <div class="hero-banner__text">{{ section.settings.text }}</div>
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link }}" class="hero-banner__button">
+          {{ section.settings.button_label }}
+          <span class="hero-banner__button-icon">▶</span>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="hero-banner__image-container">
+      <div class="hero-banner__platform">
+        {% if section.settings.featured_products != blank %}
+          {% assign first_product = section.settings.featured_products.first %}
+          {% if first_product.featured_image %}
+            <img 
+              src="{{ first_product.featured_image | img_url: 'large' }}"
+              alt="{{ first_product.title }}"
+              class="hero-banner__product-showcase"
+              loading="eager"
+              width="500"
+              height="500">
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if section.settings.featured_products != blank %}
+    <div class="hero-banner__container">
+      <div class="hero-banner__products">
+        <div class="hero-banner__products-heading">
+          <h2 class="hero-banner__products-title">{{ section.settings.products_heading }}</h2>
+          <div class="hero-banner__products-subtitle">PRODUCTS</div>
+        </div>
+        <div class="hero-banner__product-grid">
+          {% for product in section.settings.featured_products %}
+            <a href="{{ product.url }}" class="hero-banner__product">
+              {% if product.featured_image %}
+                <img 
+                  src="{{ product.featured_image | img_url: 'medium' }}"
+                  alt="{{ product.title }}"
+                  class="hero-banner__product-image"
+                  loading="lazy"
+                  width="200"
+                  height="200">
+              {% endif %}
+              <h3 class="hero-banner__product-title">{{ product.title }}</h3>
+              <div class="hero-banner__product-price">{{ product.price | money }}</div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
