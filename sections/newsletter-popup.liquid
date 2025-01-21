@@ -1,0 +1,191 @@
+{% schema %}
+{
+  "name": "Newsletter Popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "label": "Enable Popup",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "popup_title",
+      "label": "Popup Title",
+      "default": "Save 10% off full-price items*"
+    },
+    {
+      "type": "text",
+      "id": "popup_subtitle",
+      "label": "Popup Subtitle",
+      "default": "Get alerts about new items, sales and more."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_crate_kids",
+      "label": "Show Crate&Kids Checkbox",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "popup_delay",
+      "label": "Show Popup After (seconds)",
+      "default": 5
+    }
+  ]
+}
+{% endschema %}
+
+<div class="newsletter-popup" id="newsletterPopup" style="display: none;">
+  <div class="newsletter-popup__content">
+    <button type="button" class="newsletter-popup__close" onclick="closeNewsletterPopup()">
+      &times;
+    </button>
+    
+    <h2>{{ section.settings.popup_title }}</h2>
+    <p>{{ section.settings.popup_subtitle }}</p>
+
+    <form id="newsletterForm" onsubmit="handleSubscribe(event)" class="newsletter-popup__form">
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" required>
+      </div>
+
+      {% if section.settings.show_crate_kids %}
+      <div class="form-field checkbox">
+        <input type="checkbox" id="crateKids">
+        <label for="crateKids">Send me news about Crate&Kids too</label>
+      </div>
+      {% endif %}
+
+      <div class="form-field">
+        <label for="phone">Mobile Phone Number</label>
+        <input type="tel" id="phone" required>
+      </div>
+
+      <p class="terms-text">
+        By signing up for text, you agree to receive recurring automated promotional and personalized marketing text messages at this number. Consent is not a condition of any purchase. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg & data rates may apply.
+      </p>
+
+      <div class="button-group">
+        <button type="submit" class="submit-button">SUBMIT</button>
+        <button type="button" class="maybe-later" onclick="closeNewsletterPopup()">MAYBE LATER</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.newsletter-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.newsletter-popup__content {
+  background: white;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  border-radius: 4px;
+}
+
+.newsletter-popup__close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.newsletter-popup__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-field input:not([type="checkbox"]) {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.terms-text {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.submit-button {
+  background: #000;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.maybe-later {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if ({{ section.settings.enable_popup }}) {
+      initializeNewsletterPopup();
+    }
+  });
+
+  function initializeNewsletterPopup() {
+    const lastShown = localStorage.getItem('newsletterPopupLastShown');
+    const now = new Date().getTime();
+    const twoHours = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+
+    if (!lastShown || (now - parseInt(lastShown)) > twoHours) {
+      setTimeout(() => {
+        document.getElementById('newsletterPopup').style.display = 'flex';
+      }, {{ section.settings.popup_delay | times: 1000 }});
+    }
+  }
+
+  function closeNewsletterPopup() {
+    document.getElementById('newsletterPopup').style.display = 'none';
+    localStorage.setItem('newsletterPopupLastShown', new Date().getTime());
+  }
+
+  function handleSubscribe(event) {
+    event.preventDefault();
+    // Here you would typically handle the form submission
+    // Add your newsletter subscription logic here
+    closeNewsletterPopup();
+  }
+</script> 
