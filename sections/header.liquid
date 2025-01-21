@@ -28,16 +28,359 @@
   "name": "Header",
   "settings": [
     {
+      "type": "link_list",
+      "id": "top_menu",
+      "label": "Top Navigation Menu",
+      "default": "top-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main Navigation Menu",
+      "default": "main-menu"
+    },
+    {
       "type": "image_picker",
       "id": "logo",
       "label": "Logo"
     },
     {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 100
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Support LA Wildfire Relief:"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement Link"
+    },
+    {
+      "type": "text",
+      "id": "announcement_link_text",
+      "label": "Announcement Link Text",
+      "default": "Learn More"
     }
   ]
 }
-{% endschema %} 
+{% endschema %}
+
+<div class="header-wrapper">
+  <!-- Top Announcement Bar -->
+  {% if section.settings.announcement_text != blank %}
+    <div class="announcement-bar">
+      <div class="container">
+        <div class="announcement-bar__content">
+          <div class="brand-links">
+            <a href="/" class="brand-link">Crate&Barrel</a>
+            <a href="/kids" class="brand-link">Crate&kids</a>
+            <a href="/cb2" class="brand-link">CB2</a>
+            <a href="/hudson-grace" class="brand-link">HUDSON | GRACE</a>
+          </div>
+          <div class="announcement-text">
+            {{ section.settings.announcement_text }}
+            {% if section.settings.announcement_link != blank %}
+              <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_link_text }} →</a>
+            {% endif %}
+          </div>
+          <div class="country-selector">
+            <span class="flag">🇺🇸</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Main Header -->
+  <header class="site-header">
+    <div class="container">
+      <!-- Search Bar -->
+      <div class="header-search">
+        <form action="/search" method="get" class="search-form">
+          <input type="text" name="q" placeholder="What can we help you find?" aria-label="Search">
+          <button type="submit" class="search-submit">
+            <span class="icon-search">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 19L13 13M15 8C15 11.866 11.866 15 8 15C4.13401 15 1 11.866 1 8C1 4.13401 4.13401 1 8 1C11.866 1 15 4.13401 15 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Logo -->
+      <div class="header-logo">
+        <a href="/">
+          {% if section.settings.logo != blank %}
+            <img src="{{ section.settings.logo | img_url: 'master' }}"
+                 alt="{{ shop.name }}"
+                 style="max-width: {{ section.settings.logo_width }}px"
+                 width="{{ section.settings.logo_width }}"
+                 height="auto"
+                 loading="lazy">
+          {% else %}
+            <img src="{{ 'logo.svg' | asset_url }}" alt="{{ shop.name }}" class="default-logo">
+          {% endif %}
+        </a>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="/account" class="header-action">Orders & Sign In</a>
+        <a href="/locations" class="header-action">
+          <span class="icon-location">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 22C16 18 20 14.4183 20 10C20 5.58172 16.4183 2 12 2C7.58172 2 4 5.58172 4 10C4 14.4183 8 18 12 22Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+        </a>
+        <a href="/wishlist" class="header-action">
+          <span class="icon-heart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21L2.39998 11.4C0.899983 9.9 0.899983 7.5 2.39998 6C3.89998 4.5 6.29998 4.5 7.79998 6L12 10.2L16.2 6C17.7 4.5 20.1 4.5 21.6 6C23.1 7.5 23.1 9.9 21.6 11.4L12 21Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+          <span class="count">0</span>
+        </a>
+        <a href="/cart" class="header-action">
+          <span class="icon-cart">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 3H5L5.4 5M5.4 5H21L17 13H7M5.4 5L7 13M7 13L4.707 15.293C4.077 15.923 4.523 17 5.414 17H17M17 17C16.4696 17 15.9609 17.2107 15.5858 17.5858C15.2107 17.9609 15 18.4696 15 19C15 19.5304 15.2107 20.0391 15.5858 20.4142C15.9609 20.7893 16.4696 21 17 21C17.5304 21 18.0391 20.7893 18.4142 20.4142C18.7893 20.0391 19 19.5304 19 19C19 18.4696 18.7893 17.9609 18.4142 17.5858C18.0391 17.2107 17.5304 17 17 17Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </span>
+          <span class="count">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Menus -->
+  <nav class="site-navigation">
+    <!-- Top Menu -->
+    <div class="top-menu">
+      <div class="container">
+        <ul class="menu-list">
+          {% for link in linklists[section.settings.top_menu].links %}
+            <li class="menu-item{% if link.active %} active{% endif %}">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div class="main-menu">
+      <div class="container">
+        <ul class="menu-list">
+          {% for link in linklists[section.settings.main_menu].links %}
+            <li class="menu-item{% if link.active %} active{% endif %}">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<style>
+.header-wrapper {
+  width: 100%;
+}
+
+.announcement-bar {
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 8px 0;
+}
+
+.announcement-bar__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-links {
+  display: flex;
+  gap: 20px;
+}
+
+.brand-link {
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.announcement-text {
+  font-size: 14px;
+}
+
+.announcement-text a {
+  color: #000;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.country-selector {
+  font-size: 14px;
+}
+
+.site-header {
+  padding: 20px 0;
+  background: #fff;
+}
+
+.site-header .container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-search {
+  max-width: 400px;
+}
+
+.search-form {
+  position: relative;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-submit {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header-logo {
+  text-align: center;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-action {
+  color: #000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.count {
+  font-size: 12px;
+}
+
+.site-navigation {
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.top-menu {
+  background: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.main-menu {
+  background: #fff;
+  padding: 15px 0;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-item a {
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.main-menu .menu-item a {
+  font-weight: 500;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media (max-width: 1024px) {
+  .site-header .container {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .brand-links {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .announcement-text {
+    font-size: 12px;
+  }
+
+  .menu-list {
+    gap: 15px;
+  }
+
+  .menu-item a {
+    font-size: 12px;
+  }
+}
+</style>
+
+<script>
+  // Add any JavaScript functionality here
+  document.addEventListener('DOMContentLoaded', function() {
+    // Update cart count
+    const cartCount = document.querySelector('.header-action[href="/cart"] .count');
+    if (cartCount) {
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          cartCount.textContent = cart.item_count;
+        });
+    }
+  });
+</script> 
