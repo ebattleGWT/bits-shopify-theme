@@ -1,9 +1,17 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "logo": "",
     "logo_width": 140,
     "favicon": "",
-    
     "colors_solid_button_labels": "#FFFFFF",
     "colors_accent_1": "#121212",
     "colors_accent_2": "#334FB4",
@@ -11,35 +19,29 @@
     "colors_outline_button_labels": "#121212",
     "colors_background_1": "#FFFFFF",
     "colors_background_2": "#F3F3F3",
-    
     "type_header_font": "poppins_n6",
     "heading_scale": 100,
     "type_body_font": "inter_n4",
     "body_scale": 100,
-    
     "social_twitter_link": "https://twitter.com",
     "social_facebook_link": "https://facebook.com",
     "social_instagram_link": "https://instagram.com",
     "social_youtube_link": "https://youtube.com",
     "social_tiktok_link": "https://tiktok.com",
-    
     "container_width": 1200,
     "spacing_sections": 50,
     "spacing_grid_horizontal": 20,
     "spacing_grid_vertical": 20,
     "grid_columns_desktop": 3,
     "grid_columns_mobile": 2,
-    
     "enable_sticky_header": true,
     "enable_cart_drawer": true,
     "show_vendor": true,
     "show_rating": true,
     "show_cookie_banner": true,
-    
     "seo_title": "Your Store Name",
     "seo_description": "Welcome to our store - discover our amazing products",
     "seo_keywords": "shop, ecommerce, store, products",
-    
     "checkout_logo_enabled": true,
     "checkout_logo_position": "left",
     "checkout_logo_size": "medium",
@@ -48,24 +50,20 @@
     "checkout_sidebar_background_color": "#F3F3F3",
     "checkout_accent_color": "#334FB4",
     "checkout_button_color": "#121212",
-    
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
+          "enable": true,
           "text": "Welcome to our store",
-          "text_color": "#FFFFFF",
-          "background_color": "#121212",
-          "enable": true
+          "text_color": "#ffffff",
+          "background_color": "#121212"
         }
       },
       "header": {
         "type": "header",
         "settings": {
-          "menu": "main-menu",
-          "show_search": true,
-          "show_cart": true,
-          "sticky_header": true
+          "menu": "main-menu"
         }
       },
       "footer": {
@@ -73,19 +71,49 @@
         "settings": {
           "menu_1": "footer",
           "show_social": true,
-          "show_payment_icons": true,
-          "show_locale_selector": true,
-          "show_currency_selector": true,
           "copyright_text": "© 2024 Your Store. All rights reserved."
+        }
+      },
+      "hero-banner": {
+        "type": "hero-banner",
+        "settings": {
+          "heading": "Welcome to our store",
+          "heading_size": "h1",
+          "subheading": "Discover our latest collection",
+          "overlay_opacity": 30,
+          "button_label": "Shop Now",
+          "button_link": "",
+          "button_style": "primary",
+          "text_alignment": "center",
+          "height": "medium"
+        }
+      },
+      "featured-products": {
+        "type": "featured-products",
+        "settings": {
+          "title": "Featured Products",
+          "heading_size": "h2",
+          "text_alignment": "center",
+          "collection": "",
+          "products_to_show": 4,
+          "layout": "grid",
+          "grid_gap": 20,
+          "show_secondary_image": true,
+          "show_view_all": true
+        }
+      },
+      "newsletter-popup": {
+        "type": "newsletter-popup",
+        "settings": {
+          "enable_popup": true,
+          "popup_title": "Save 10% off items $25 or more",
+          "popup_subtitle": "Get alerts about new items, sales and more.",
+          "show_crate_kids": false,
+          "popup_delay": 1
         }
       }
     },
-    
-    "content_for_index": [
-      "hero-banner",
-      "featured-collection",
-      "testimonials"
-    ]
+    "content_for_index": []
   },
   "presets": {
     "Default": {
