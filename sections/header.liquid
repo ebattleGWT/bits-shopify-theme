@@ -76,31 +76,6 @@
 {% endschema %}
 
 <div class="header-wrapper">
-  <!-- Top Announcement Bar -->
-  {% if section.settings.announcement_text != blank %}
-    <div class="announcement-bar">
-      <div class="container">
-        <div class="announcement-bar__content">
-          <div class="brand-links">
-            <a href="/" class="brand-link">Crate&Barrel</a>
-            <a href="/kids" class="brand-link">Crate&kids</a>
-            <a href="/cb2" class="brand-link">CB2</a>
-            <a href="/hudson-grace" class="brand-link">HUDSON | GRACE</a>
-          </div>
-          <div class="announcement-text">
-            {{ section.settings.announcement_text }}
-            {% if section.settings.announcement_link != blank %}
-              <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_link_text }} →</a>
-            {% endif %}
-          </div>
-          <div class="country-selector">
-            <span class="flag">🇺🇸</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-
   <!-- Main Header -->
   <header class="site-header">
     <div class="container">
@@ -172,8 +147,10 @@
       <div class="container">
         <ul class="menu-list">
           {% for link in linklists[section.settings.top_menu].links %}
-            <li class="menu-item{% if link.active %} active{% endif %}">
-              <a href="{{ link.url }}">{{ link.title }}</a>
+            <li class="menu-item">
+              <a href="{{ link.url }}" {% if link.title contains 'NEW!' or link.title contains 'SALE' %}class="menu-highlight"{% endif %}>
+                {{ link.title }}
+              </a>
             </li>
           {% endfor %}
         </ul>
@@ -185,7 +162,7 @@
       <div class="container">
         <ul class="menu-list">
           {% for link in linklists[section.settings.main_menu].links %}
-            <li class="menu-item{% if link.active %} active{% endif %}">
+            <li class="menu-item {% if link.title contains 'SALE' %}sale{% endif %}">
               <a href="{{ link.url }}">{{ link.title }}</a>
             </li>
           {% endfor %}
@@ -198,43 +175,6 @@
 <style>
 .header-wrapper {
   width: 100%;
-}
-
-.announcement-bar {
-  background: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 8px 0;
-}
-
-.announcement-bar__content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.brand-links {
-  display: flex;
-  gap: 20px;
-}
-
-.brand-link {
-  color: #000;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.announcement-text {
-  font-size: 14px;
-}
-
-.announcement-text a {
-  color: #000;
-  text-decoration: none;
-  margin-left: 5px;
-}
-
-.country-selector {
-  font-size: 14px;
 }
 
 .site-header {
@@ -301,7 +241,6 @@
 
 .site-navigation {
   border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
 }
 
 .top-menu {
@@ -313,6 +252,7 @@
 .main-menu {
   background: #fff;
   padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .menu-list {
@@ -322,6 +262,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 .menu-item a {
@@ -329,6 +270,18 @@
   text-decoration: none;
   font-size: 14px;
   text-transform: uppercase;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.menu-item.sale a {
+  color: #D42F1D;
+  font-weight: 500;
+}
+
+.menu-highlight {
+  color: #D42F1D !important;
+  font-weight: 500 !important;
 }
 
 .main-menu .menu-item a {
@@ -350,22 +303,23 @@
     display: none;
   }
 
-  .brand-links {
-    display: none;
+  .menu-list {
+    gap: 15px;
   }
 }
 
 @media (max-width: 768px) {
-  .announcement-text {
-    font-size: 12px;
-  }
-
   .menu-list {
-    gap: 15px;
+    gap: 10px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 10px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .menu-item a {
     font-size: 12px;
+    white-space: nowrap;
   }
 }
 </style>
