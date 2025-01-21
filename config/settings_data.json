@@ -63,8 +63,18 @@
       "header": {
         "type": "header",
         "settings": {
+          "top_menu": "main-menu",
+          "main_menu": "main-menu",
           "logo": "shopify://shop_images/BITS_Logo_11zon.png",
-          "menu": "main-menu"
+          "logo_width": 100,
+          "announcement_text": "Support LA Wildfire Relief:",
+          "announcement_link": "",
+          "announcement_link_text": "Learn More",
+          "show_search": true,
+          "show_account": true,
+          "show_locations": true,
+          "show_wishlist": true,
+          "show_cart": true
         }
       },
       "footer": {
@@ -81,12 +91,13 @@
           "heading": "Welcome to our store",
           "heading_size": "h1",
           "subheading": "Discover our latest collection",
+          "background_image": "shopify://shop_images/theme_cover_image.jpg",
           "overlay_opacity": 30,
           "button_label": "Shop Now",
           "button_link": "",
           "button_style": "primary",
           "text_alignment": "center",
-          "height": "medium"
+          "height": "large"
         }
       },
       "featured-products": {
@@ -95,10 +106,10 @@
           "title": "Featured Products",
           "heading_size": "h2",
           "text_alignment": "center",
-          "collection": "",
+          "collection": "automated-collection",
           "products_to_show": 4,
           "layout": "grid",
-          "grid_gap": 20,
+          "grid_gap": 10,
           "show_secondary_image": true,
           "show_view_all": true
         }
