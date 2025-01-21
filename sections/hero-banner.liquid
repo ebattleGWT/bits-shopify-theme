@@ -21,7 +21,15 @@
 
       <div class="hero-banner__image">
         <div class="hero-banner__platform">
-          {%- if section.settings.featured_products != blank -%}
+          {%- if section.settings.hero_image != blank -%}
+            <img 
+              src="{{ section.settings.hero_image | img_url: 'master' }}"
+              alt="{{ section.settings.heading | escape }}"
+              class="hero-banner__product-showcase"
+              loading="eager"
+              width="{{ section.settings.image_width }}"
+              height="auto">
+          {%- elsif section.settings.featured_products != blank -%}
             {%- assign first_product = section.settings.featured_products.first -%}
             {%- if first_product.featured_image -%}
               <img 
@@ -100,6 +108,26 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image",
+      "info": "Recommended: Product group image like the sunscreen bottles"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "min": 200,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Image width",
+      "default": 500
     },
     {
       "type": "select",
@@ -282,12 +310,17 @@
   justify-content: center;
   align-items: flex-end;
   padding-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero-banner__product-showcase {
   max-width: 90%;
   height: auto;
   object-fit: contain;
+  position: relative;
+  z-index: 2;
+  transform: translateY(5%);
 }
 
 .hero-banner__products {
