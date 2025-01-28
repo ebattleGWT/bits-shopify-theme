@@ -66,8 +66,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "top_menu": "main-menu",
-          "main_menu": "",
+          "top_menu": "",
+          "main_menu": "main-menu",
           "logo": "shopify://shop_images/BITS_Logo_11zon.png",
           "logo_width": 150,
           "announcement_text": "Support LA Wildfire Relief:",
@@ -85,7 +85,7 @@
         "settings": {
           "menu_1": "footer",
           "show_social": true,
-          "copyright_text": "© 2024 Your Store. All rights reserved."
+          "copyright_text": "© 2024 Built by Battle IT Solutions. All rights reserved."
         }
       },
       "hero-banner": {
@@ -145,18 +145,38 @@
               "testimonial_text": "Ion even know why I copped a snowboard when I hate the snow but it was decent.\n\n*remove the double stars\n*allow enter to create line break",
               "rating": 5
             }
+          },
+          "testimonial_jAJiki": {
+            "type": "testimonial",
+            "settings": {
+              "author_name": "Customer Name",
+              "author_title": "Verified Customer",
+              "testimonial_text": "Share what your customers are saying about your products or services.",
+              "rating": 5
+            }
+          },
+          "testimonial_cHe7ge": {
+            "type": "testimonial",
+            "settings": {
+              "author_name": "Customer Name",
+              "author_title": "Verified Customer",
+              "testimonial_text": "Share what your customers are saying about your products or services.",
+              "rating": 5
+            }
           }
         },
         "block_order": [
-          "testimonial_tpbRqq"
+          "testimonial_tpbRqq",
+          "testimonial_jAJiki",
+          "testimonial_cHe7ge"
         ],
         "settings": {
           "title": "WHAT PEOPLE THINK",
           "heading_size": "h2",
           "text_alignment": "center",
-          "background_color": "#FF5733",
-          "text_color": "#FFFFFF",
-          "star_color": "#FFD700",
+          "background_color": "#ffffff",
+          "text_color": "#ffffff",
+          "star_color": "#ffd700",
           "review_count": "38 reviews",
           "grid_gap": 32
         }
