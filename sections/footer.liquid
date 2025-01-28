@@ -17,7 +17,7 @@
     </div>
     
     <div class="footer__bottom">
-      <p class="footer__copyright">{{ section.settings.copyright_text }}</p>
+      <p class="footer__copyright">{{ section.settings.copyright_text }}{{ section.settings.developer_link }}</p>
     </div>
   </div>
 </footer>
@@ -43,6 +43,12 @@
       "id": "copyright_text",
       "label": "Copyright text",
       "default": "© 2024 Your Store. All rights reserved."
+    },
+    {
+      "type":"url",
+      "id": "developer_link",
+      "label": "Developer Link",
+      "default": "https://battleitsolutions.com"
     }
   ]
 }
