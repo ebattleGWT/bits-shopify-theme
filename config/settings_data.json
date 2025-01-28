@@ -149,18 +149,18 @@
           "testimonial_jAJiki": {
             "type": "testimonial",
             "settings": {
-              "author_name": "Customer Name",
-              "author_title": "Verified Customer",
-              "testimonial_text": "Share what your customers are saying about your products or services.",
-              "rating": 5
+              "author_name": "Frank Lucas",
+              "author_title": "Verified Hustler",
+              "testimonial_text": "I just had alot of extra money and gave it a try to see if i could ski through this special snow I have.",
+              "rating": 3
             }
           },
           "testimonial_cHe7ge": {
             "type": "testimonial",
             "settings": {
-              "author_name": "Customer Name",
+              "author_name": "Emmanuel Battle",
               "author_title": "Verified Customer",
-              "testimonial_text": "Share what your customers are saying about your products or services.",
+              "testimonial_text": "I built this theme as a boilerplate for our future themes. We will have way more advanced features such as AI integration, more customizable sections, and even built in tools to help run your business smoothly.",
               "rating": 5
             }
           }
