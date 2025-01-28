@@ -54,7 +54,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "custom_css": [
-          "p {text-align:center;}"
+          "p {text-align: center;}"
         ],
         "settings": {
           "enable": true,
@@ -113,15 +113,15 @@
       "featured-products": {
         "type": "featured-products",
         "settings": {
-          "title": "Featured Products",
+          "title": "Make this featured product section optional.",
           "heading_size": "h2",
           "text_alignment": "center",
-          "collection": "automated-collection",
-          "products_to_show": 4,
+          "collection": "",
+          "products_to_show": 2,
           "layout": "grid",
           "grid_gap": 10,
-          "show_secondary_image": true,
-          "show_view_all": true
+          "show_secondary_image": false,
+          "show_view_all": false
         }
       },
       "newsletter-popup": {
@@ -132,6 +132,19 @@
           "popup_subtitle": "Get alerts about new items, sales and more.",
           "show_crate_kids": false,
           "popup_delay": 1
+        }
+      },
+      "testimonials": {
+        "type": "testimonials",
+        "settings": {
+          "title": "WHAT PEOPLE THINK",
+          "heading_size": "h2",
+          "text_alignment": "center",
+          "background_color": "#FF5733",
+          "text_color": "#FFFFFF",
+          "star_color": "#FFD700",
+          "review_count": "38 reviews",
+          "grid_gap": 32
         }
       }
     },
