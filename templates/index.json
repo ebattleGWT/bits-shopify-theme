@@ -46,28 +46,25 @@
         "testimonial1": {
           "type": "testimonial",
           "settings": {
-            "author": "John Doe",
-            "text": "Amazing products and great service! Highly recommended.",
-            "author_image": "",
-            "stars": 5
+            "author_name": "JULIE R",
+            "testimonial_text": "Just about to place my 3rd order in a month... that should tell you all you need to know. I order the variety pack, because I love them all!",
+            "rating": 5
           }
         },
         "testimonial2": {
           "type": "testimonial",
           "settings": {
-            "author": "Jane Smith",
-            "text": "The quality exceeded my expectations. Will definitely shop here again!",
-            "author_image": "",
-            "stars": 5
+            "author_name": "MARY M",
+            "testimonial_text": "Good but need more filling n less dough.",
+            "rating": 5
           }
         },
         "testimonial3": {
           "type": "testimonial",
           "settings": {
-            "author": "Mike Johnson",
-            "text": "Fast shipping and excellent customer support.",
-            "author_image": "",
-            "stars": 5
+            "author_name": "LISA R",
+            "testimonial_text": "The best protein tart I've tasted. You guys nailed it. Thank you",
+            "rating": 5
           }
         }
       },
@@ -77,13 +74,14 @@
         "testimonial3"
       ],
       "settings": {
-        "title": "What Our Customers Say",
+        "title": "WHAT PEOPLE THINK",
         "heading_size": "h2",
-        "heading_alignment": "center",
-        "layout": "grid",
-        "color_scheme": "background-2",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "text_alignment": "center",
+        "background_color": "#FF5733",
+        "text_color": "#FFFFFF",
+        "star_color": "#FFD700",
+        "review_count": "38 reviews",
+        "grid_gap": 32
       }
     }
   },
