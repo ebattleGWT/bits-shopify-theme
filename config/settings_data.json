@@ -53,9 +53,12 @@
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
+        "custom_css": [
+          "p {text-align:center;}"
+        ],
         "settings": {
           "enable": true,
-          "text": "Welcome to our store",
+          "text": "Whole Lotta Gang Shit",
           "text_color": "#ffffff",
           "background_color": "#121212"
         }
@@ -64,9 +67,9 @@
         "type": "header",
         "settings": {
           "top_menu": "main-menu",
-          "main_menu": "main-menu",
+          "main_menu": "",
           "logo": "shopify://shop_images/BITS_Logo_11zon.png",
-          "logo_width": 100,
+          "logo_width": 150,
           "announcement_text": "Support LA Wildfire Relief:",
           "announcement_link": "",
           "announcement_link_text": "Learn More",
