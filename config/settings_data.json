@@ -136,6 +136,20 @@
       },
       "testimonials": {
         "type": "testimonials",
+        "blocks": {
+          "testimonial_tpbRqq": {
+            "type": "testimonial",
+            "settings": {
+              "author_name": "Himothy Johnson",
+              "author_title": "Verified Skreet Dude",
+              "testimonial_text": "Ion even know why I copped a snowboard when I hate the snow but it was decent.\n\n*remove the double stars\n*allow enter to create line break",
+              "rating": 5
+            }
+          }
+        },
+        "block_order": [
+          "testimonial_tpbRqq"
+        ],
         "settings": {
           "title": "WHAT PEOPLE THINK",
           "heading_size": "h2",
