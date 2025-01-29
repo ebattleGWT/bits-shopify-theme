@@ -14,6 +14,15 @@
       "label": "Collection"
     },
     {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 7,
+      "label": "Number of products to show"
+    },
+    {
       "type": "color",
       "id": "button_color",
       "label": "Button Color",
@@ -26,52 +35,12 @@
       "default": "#000000"
     }
   ],
-  "blocks": [
-    {
-      "type": "product",
-      "name": "Product",
-      "settings": [
-        {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
-        },
-        {
-          "type": "select",
-          "id": "size",
-          "label": "Card Size",
-          "options": [
-            {
-              "value": "normal",
-              "label": "Normal"
-            },
-            {
-              "value": "large",
-              "label": "Large (2x2)"
-            }
-          ],
-          "default": "normal"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "Featured Products Grid",
-      "blocks": [
-        {
-          "type": "product"
-        },
-        {
-          "type": "product"
-        },
-        {
-          "type": "product"
-        },
-        {
-          "type": "product"
-        }
-      ]
+      "settings": {
+        "products_to_show": 7
+      }
     }
   ]
 }
@@ -83,11 +52,12 @@
       <h2 class="featured-products__title">{{ section.settings.title }}</h2>
     {% endif %}
 
-    <div class="featured-products__grid">
-      {% for block in section.blocks %}
-        {% assign product = block.settings.product %}
-        {% if product != blank %}
-          <div class="product-card {% if block.settings.size == 'large' %}product-card--large{% endif %}" {{ block.shopify_attributes }}>
+    {% if section.settings.collection != blank %}
+      <div class="featured-products__grid">
+        {% assign products = section.settings.collection.products | limit: section.settings.products_to_show %}
+        {% for product in products %}
+          {% assign is_first = forloop.first %}
+          <div class="product-card {% if is_first %}product-card--large{% endif %}" {{ block.shopify_attributes }}>
             <div class="product-card__image-wrapper">
               {% if product.featured_image != blank %}
                 <img
@@ -96,8 +66,8 @@
                     {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | img_url: '535x' }} 535w,{%- endif -%}
                     {%- if product.featured_image.width >= 750 -%}{{ product.featured_image | img_url: '750x' }} 750w,{%- endif -%}"
                   src="{{ product.featured_image | img_url: '535x' }}"
-                  sizes="(min-width: 990px) {% if block.settings.size == 'large' %}750px{% else %}360px{% endif %},
-                         (min-width: 750px) {% if block.settings.size == 'large' %}535px{% else %}360px{% endif %},
+                  sizes="(min-width: 990px) {% if is_first %}750px{% else %}360px{% endif %},
+                         (min-width: 750px) {% if is_first %}535px{% else %}360px{% endif %},
                          calc(100vw - 30px)"
                   alt="{{ product.featured_image.alt | escape }}"
                   loading="lazy"
@@ -111,7 +81,10 @@
             </div>
 
             <div class="product-card__info">
-              <h3 class="product-card__title">{{ product.title }}</h3>
+              <div class="product-card__meta">
+                <p class="product-card__type">{{ product.type }}</p>
+                <h3 class="product-card__title">{{ product.title }}</h3>
+              </div>
               
               <div class="product-card__price">
                 {% if product.compare_at_price > product.price %}
@@ -127,15 +100,20 @@
               </a>
             </div>
           </div>
-        {% endif %}
-      {% endfor %}
-    </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="featured-products__placeholder">
+        <p>Please select a collection to display products.</p>
+      </div>
+    {% endif %}
   </div>
 </div>
 
 <style>
 .featured-products {
   padding: var(--section-padding) 0;
+  background: #fff;
 }
 
 .featured-products__title {
@@ -146,14 +124,8 @@
 
 .featured-products__grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-}
-
-@media screen and (min-width: 750px) {
-  .featured-products__grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 
 .product-card {
@@ -161,6 +133,7 @@
   border-radius: 0.5rem;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
 .product-card:hover {
@@ -192,22 +165,40 @@
 .product-card__info {
   padding: 1.5rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.product-card__meta {
+  margin-bottom: 0.5rem;
+}
+
+.product-card__type {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .product-card__title {
   font-size: 1rem;
-  margin: 0 0 0.5rem;
+  margin: 0.25rem 0 0;
   font-weight: 500;
 }
 
 .product-card__price {
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .product-card__price--regular {
   text-decoration: line-through;
   color: #999;
-  margin-right: 0.5rem;
 }
 
 .product-card__price--sale {
@@ -221,14 +212,29 @@
   text-decoration: none;
   font-weight: 500;
   transition: opacity 0.3s ease;
+  margin-top: auto;
 }
 
 .product-card__button:hover {
   opacity: 0.9;
 }
 
+.featured-products__placeholder {
+  text-align: center;
+  padding: 3rem;
+  background: #f5f5f5;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 989px) {
+  .featured-products__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media screen and (max-width: 749px) {
   .featured-products__grid {
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
@@ -238,6 +244,11 @@
 
   .product-card__button {
     padding: 0.5rem 1.5rem;
+  }
+
+  .product-card--large {
+    grid-column: span 2;
+    grid-row: span 2;
   }
 }
 </style> 
