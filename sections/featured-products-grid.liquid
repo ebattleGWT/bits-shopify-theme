@@ -1,0 +1,243 @@
+{% schema %}
+{
+  "name": "Featured Products Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#F8D7C4"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Card Size",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "large",
+              "label": "Large (2x2)"
+            }
+          ],
+          "default": "normal"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products Grid",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="featured-products">
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+      <h2 class="featured-products__title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="featured-products__grid">
+      {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        {% if product != blank %}
+          <div class="product-card {% if block.settings.size == 'large' %}product-card--large{% endif %}" {{ block.shopify_attributes }}>
+            <div class="product-card__image-wrapper">
+              {% if product.featured_image != blank %}
+                <img
+                  srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | img_url: '165x' }} 165w,{%- endif -%}
+                    {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | img_url: '360x' }} 360w,{%- endif -%}
+                    {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | img_url: '535x' }} 535w,{%- endif -%}
+                    {%- if product.featured_image.width >= 750 -%}{{ product.featured_image | img_url: '750x' }} 750w,{%- endif -%}"
+                  src="{{ product.featured_image | img_url: '535x' }}"
+                  sizes="(min-width: 990px) {% if block.settings.size == 'large' %}750px{% else %}360px{% endif %},
+                         (min-width: 750px) {% if block.settings.size == 'large' %}535px{% else %}360px{% endif %},
+                         calc(100vw - 30px)"
+                  alt="{{ product.featured_image.alt | escape }}"
+                  loading="lazy"
+                  class="product-card__image"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag: 'product-card__image placeholder-svg' }}
+              {% endif %}
+            </div>
+
+            <div class="product-card__info">
+              <h3 class="product-card__title">{{ product.title }}</h3>
+              
+              <div class="product-card__price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="product-card__price--regular">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span class="product-card__price--sale">{{ product.price | money }}</span>
+              </div>
+
+              <a href="{{ product.url }}" class="button product-card__button"
+                 style="background-color: {{ section.settings.button_color }}; 
+                        color: {{ section.settings.button_text_color }};">
+                Buy Now
+              </a>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.featured-products {
+  padding: var(--section-padding) 0;
+}
+
+.featured-products__title {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-size: var(--heading-scale-base);
+}
+
+.featured-products__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .featured-products__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-card--large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.product-card__image-wrapper {
+  position: relative;
+  padding-bottom: 100%;
+  background: #fff;
+}
+
+.product-card__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 1rem;
+}
+
+.product-card__info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.product-card__title {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  font-weight: 500;
+}
+
+.product-card__price {
+  margin-bottom: 1rem;
+}
+
+.product-card__price--regular {
+  text-decoration: line-through;
+  color: #999;
+  margin-right: 0.5rem;
+}
+
+.product-card__price--sale {
+  font-weight: 600;
+}
+
+.product-card__button {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
+}
+
+.product-card__button:hover {
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 749px) {
+  .featured-products__grid {
+    gap: 1rem;
+  }
+
+  .product-card__info {
+    padding: 1rem;
+  }
+
+  .product-card__button {
+    padding: 0.5rem 1.5rem;
+  }
+}
+</style> 
