@@ -180,6 +180,57 @@
           "review_count": "38 reviews",
           "grid_gap": 32
         }
+      },
+      "brand-logos": {
+        "type": "brand-logos",
+        "blocks": {
+          "logo_fUNNqk": {
+            "type": "logo",
+            "settings": {
+              "logo_image": "shopify://shop_images/sample-normal-wax.png",
+              "link": "",
+              "brand_name": "Movers & Groovers"
+            }
+          },
+          "logo_PU9VxJ": {
+            "type": "logo",
+            "settings": {
+              "logo_image": "shopify://shop_images/sample-normal-wax.png",
+              "link": "",
+              "brand_name": "Brand Name"
+            }
+          },
+          "logo_9ALqw3": {
+            "type": "logo",
+            "settings": {
+              "logo_image": "shopify://shop_images/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg",
+              "link": "",
+              "brand_name": "Brand Name"
+            }
+          },
+          "logo_yN8fAk": {
+            "type": "logo",
+            "settings": {
+              "logo_image": "shopify://shop_images/gift_card.png",
+              "link": "",
+              "brand_name": "Brand Name"
+            }
+          }
+        },
+        "block_order": [
+          "logo_fUNNqk",
+          "logo_PU9VxJ",
+          "logo_9ALqw3",
+          "logo_yN8fAk"
+        ],
+        "settings": {
+          "heading": "Our high-level partners",
+          "description": "We cooperate with top partners and provide access to over 1m properties in 180 countries.",
+          "background_color": "#F8F8F8",
+          "logo_max_width": 150,
+          "columns_desktop": 4,
+          "columns_mobile": 2
+        }
       }
     },
     "content_for_index": []
