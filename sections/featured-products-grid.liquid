@@ -14,9 +14,14 @@
       "label": "Collection"
     },
     {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Featured Large Product"
+    },
+    {
       "type": "range",
       "id": "products_to_show",
-      "min": 4,
+      "min": 3,
       "max": 12,
       "step": 1,
       "default": 7,
@@ -33,6 +38,22 @@
       "id": "button_text_color",
       "label": "Button Text Color",
       "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "grid_layout",
+      "label": "Grid Layout",
+      "options": [
+        {
+          "value": "3x3",
+          "label": "3x3 Grid"
+        },
+        {
+          "value": "2x4",
+          "label": "2x4 Grid"
+        }
+      ],
+      "default": "3x3"
     }
   ],
   "presets": [
@@ -55,53 +76,85 @@
     {% if section.settings.collection != blank %}
       <div class="featured-products__grid">
         {% assign products = section.settings.collection.products | limit: section.settings.products_to_show %}
-        {% for product in products %}
-          {% assign is_first = forloop.first %}
-          <div class="product-card {% if is_first %}product-card--large{% endif %}" {{ block.shopify_attributes }}>
+        {% assign featured_product = section.settings.featured_product %}
+        
+        {% if featured_product %}
+          <div class="product-card product-card--featured">
             <div class="product-card__image-wrapper">
-              {% if product.featured_image != blank %}
+              {% if featured_product.featured_image != blank %}
                 <img
-                  srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | img_url: '165x' }} 165w,{%- endif -%}
-                    {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | img_url: '360x' }} 360w,{%- endif -%}
-                    {%- if product.featured_image.width >= 535 -%}{{ product.featured_image | img_url: '535x' }} 535w,{%- endif -%}
-                    {%- if product.featured_image.width >= 750 -%}{{ product.featured_image | img_url: '750x' }} 750w,{%- endif -%}"
-                  src="{{ product.featured_image | img_url: '535x' }}"
-                  sizes="(min-width: 990px) {% if is_first %}750px{% else %}360px{% endif %},
-                         (min-width: 750px) {% if is_first %}535px{% else %}360px{% endif %},
-                         calc(100vw - 30px)"
-                  alt="{{ product.featured_image.alt | escape }}"
+                  srcset="{%- if featured_product.featured_image.width >= 535 -%}{{ featured_product.featured_image | img_url: '535x' }} 535w,{%- endif -%}
+                    {%- if featured_product.featured_image.width >= 750 -%}{{ featured_product.featured_image | img_url: '750x' }} 750w,{%- endif -%}
+                    {%- if featured_product.featured_image.width >= 1100 -%}{{ featured_product.featured_image | img_url: '1100x' }} 1100w,{%- endif -%}"
+                  src="{{ featured_product.featured_image | img_url: '1100x' }}"
+                  sizes="(min-width: 990px) 1100px, (min-width: 750px) 750px, calc(100vw - 30px)"
+                  alt="{{ featured_product.featured_image.alt | escape }}"
                   loading="lazy"
                   class="product-card__image"
-                  width="{{ product.featured_image.width }}"
-                  height="{{ product.featured_image.height }}"
                 >
-              {% else %}
-                {{ 'product-1' | placeholder_svg_tag: 'product-card__image placeholder-svg' }}
               {% endif %}
             </div>
-
             <div class="product-card__info">
-              <div class="product-card__meta">
-                <p class="product-card__type">{{ product.type }}</p>
-                <h3 class="product-card__title">{{ product.title }}</h3>
-              </div>
-              
+              <p class="product-card__type">{{ featured_product.type }}</p>
+              <h3 class="product-card__title">{{ featured_product.title }}</h3>
               <div class="product-card__price">
-                {% if product.compare_at_price > product.price %}
-                  <span class="product-card__price--regular">{{ product.compare_at_price | money }}</span>
+                {% if featured_product.compare_at_price > featured_product.price %}
+                  <span class="product-card__price--regular">{{ featured_product.compare_at_price | money }}</span>
                 {% endif %}
-                <span class="product-card__price--sale">{{ product.price | money }}</span>
+                <span class="product-card__price--sale">{{ featured_product.price | money }}</span>
               </div>
-
-              <a href="{{ product.url }}" class="button product-card__button"
+              <a href="{{ featured_product.url }}" class="button product-card__button"
                  style="background-color: {{ section.settings.button_color }}; 
                         color: {{ section.settings.button_text_color }};">
                 Buy Now
               </a>
             </div>
           </div>
+        {% endif %}
+
+        {% for product in products %}
+          {% unless product.id == featured_product.id %}
+            <div class="product-card">
+              <div class="product-card__image-wrapper">
+                {% if product.featured_image != blank %}
+                  <img
+                    srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | img_url: '165x' }} 165w,{%- endif -%}
+                      {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | img_url: '360x' }} 360w,{%- endif -%}"
+                    src="{{ product.featured_image | img_url: '360x' }}"
+                    sizes="(min-width: 990px) 360px, calc(100vw - 30px)"
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy"
+                    class="product-card__image"
+                  >
+                {% endif %}
+              </div>
+              <div class="product-card__info">
+                <p class="product-card__type">{{ product.type }}</p>
+                <h3 class="product-card__title">{{ product.title }}</h3>
+                <div class="product-card__price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="product-card__price--regular">{{ product.compare_at_price | money }}</span>
+                  {% endif %}
+                  <span class="product-card__price--sale">{{ product.price | money }}</span>
+                </div>
+                <a href="{{ product.url }}" class="button product-card__button"
+                   style="background-color: {{ section.settings.button_color }}; 
+                          color: {{ section.settings.button_text_color }};">
+                  Buy Now
+                </a>
+              </div>
+            </div>
+          {% endunless %}
         {% endfor %}
       </div>
+
+      {% if section.settings.collection.all_products_count > section.settings.products_to_show %}
+        <div class="featured-products__footer">
+          <a href="{{ section.settings.collection.url }}" class="featured-products__view-more button">
+            View More
+          </a>
+        </div>
+      {% endif %}
     {% else %}
       <div class="featured-products__placeholder">
         <p>Please select a collection to display products.</p>
@@ -124,8 +177,8 @@
 
 .featured-products__grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 
 .product-card {
@@ -134,16 +187,10 @@
   overflow: hidden;
   transition: transform 0.3s ease;
   position: relative;
+}
+
+.product-card--featured {
   grid-column: span 2;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.product-card:hover {
-  transform: translateY(-4px);
-}
-
-.product-card--large {
-  grid-column: span 4;
   grid-row: span 2;
 }
 
@@ -166,13 +213,6 @@
 .product-card__info {
   padding: 1.5rem;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.product-card__meta {
-  margin-bottom: 0.5rem;
 }
 
 .product-card__type {
@@ -181,85 +221,72 @@
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 400;
 }
 
 .product-card__title {
-  font-size: 0.875rem;
-  margin: 0;
+  font-size: 1rem;
+  margin: 0.5rem 0;
   font-weight: 500;
-  color: #000;
 }
 
 .product-card__price {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
   margin: 0.5rem 0;
 }
 
 .product-card__price--regular {
   text-decoration: line-through;
   color: #999;
-  font-size: 0.875rem;
-}
-
-.product-card__price--sale {
-  font-weight: 600;
-  color: #000;
-  font-size: 0.875rem;
+  margin-right: 0.5rem;
 }
 
 .product-card__button {
   display: inline-block;
-  padding: 0.625rem 1.5rem;
+  padding: 0.75rem 2rem;
   border-radius: 2rem;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.875rem;
+  margin-top: 1rem;
   transition: opacity 0.2s ease;
-  margin-top: 0.5rem;
 }
 
 .product-card__button:hover {
   opacity: 0.9;
 }
 
-.featured-products__placeholder {
+.featured-products__footer {
   text-align: center;
-  padding: 3rem;
-  background: #f5f5f5;
-  border-radius: 0.25rem;
-  grid-column: 1 / -1;
+  margin-top: 3rem;
+}
+
+.featured-products__view-more {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border-radius: 2rem;
+  background: {{ section.settings.button_color }};
+  color: {{ section.settings.button_text_color }};
+  text-decoration: none;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 989px) {
   .featured-products__grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
   
-  .product-card {
+  .product-card--featured {
     grid-column: span 2;
-  }
-  
-  .product-card--large {
-    grid-column: span 3;
+    grid-row: span 1;
   }
 }
 
 @media screen and (max-width: 749px) {
   .featured-products__grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .product-card {
-    grid-column: span 2;
-  }
-
-  .product-card--large {
-    grid-column: span 4;
+  .product-card--featured {
+    grid-column: span 1;
   }
 
   .product-card__info {
@@ -267,7 +294,7 @@
   }
 
   .product-card__button {
-    padding: 0.5rem 1.25rem;
+    padding: 0.5rem 1.5rem;
   }
 }
 </style> 
