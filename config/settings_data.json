@@ -237,9 +237,11 @@
         "settings": {
           "title": "Featured Collection",
           "collection": "automated-collection",
+          "featured_product": "gift-card",
           "products_to_show": 9,
-          "button_color": "#F8D7C4",
-          "button_text_color": "#000000"
+          "button_color": "#f8d7c4",
+          "button_text_color": "#000000",
+          "grid_layout": "3x3"
         }
       }
     },
