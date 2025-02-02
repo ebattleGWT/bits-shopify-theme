@@ -226,10 +226,20 @@
         "settings": {
           "heading": "Our high-level partners",
           "description": "We cooperate with top partners and provide access to over 1m properties in 180 countries.",
-          "background_color": "#F8F8F8",
+          "background_color": "#f8f8f8",
           "logo_max_width": 150,
           "columns_desktop": 4,
           "columns_mobile": 2
+        }
+      },
+      "featured-products-grid": {
+        "type": "featured-products-grid",
+        "settings": {
+          "title": "Featured Collection",
+          "collection": "automated-collection",
+          "products_to_show": 9,
+          "button_color": "#F8D7C4",
+          "button_text_color": "#000000"
         }
       }
     },
