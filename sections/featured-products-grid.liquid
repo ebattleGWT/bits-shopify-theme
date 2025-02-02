@@ -193,13 +193,15 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  aspect-ratio: 3/4;
 }
 
 .product-card--featured {
   grid-column: 1 / span 2;
-  grid-row: 2;
+  grid-row: 2 / span 2;
   background: #f9f9f9;
-  max-height: 450px;
+  height: auto;
+  aspect-ratio: auto;
 }
 
 .product-card__image-wrapper {
@@ -209,7 +211,7 @@
 }
 
 .product-card--featured .product-card__image-wrapper {
-  padding-bottom: 60%;
+  padding-bottom: calc(200% + 1rem); /* Height of two cards plus the gap */
 }
 
 .product-card__image {
