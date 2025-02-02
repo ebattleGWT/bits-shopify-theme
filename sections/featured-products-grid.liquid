@@ -179,6 +179,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  grid-auto-rows: minmax(min-content, max-content);
 }
 
 .product-card {
@@ -189,12 +190,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .product-card--featured {
   grid-column: span 2;
-  grid-row: span 2;
+  grid-row: span 1;
   background: #f9f9f9;
+  max-height: 600px;
 }
 
 .product-card__image-wrapper {
@@ -204,9 +207,7 @@
 }
 
 .product-card--featured .product-card__image-wrapper {
-  padding-bottom: 75%;
-  margin: 0;
-  height: 100%;
+  padding-bottom: 65%;
 }
 
 .product-card--featured .product-card__image {
