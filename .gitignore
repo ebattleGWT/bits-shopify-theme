@@ -1,0 +1,87 @@
+# Shopify specific
+config/settings_data.json
+config.yml
+.shopifyignore
+
+# Theme files
+*.zip
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Build directories
+dist/
+build/
+tmp/
+temp/
+
+# API keys and secrets
+*.pem
+*.key
+*.cert
+*.password
+*secret*
+*token*
+credentials.json
+google-credentials.json
+service-account.json
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache directories
+.cache/
+.npm/
+.eslintcache
+.stylelintcache
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Local development settings
+*.local
+local.*
+config.local.js
+settings.local.json
+
+# Backup files
+*.bak
+*.backup
+*~ 
